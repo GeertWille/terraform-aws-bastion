@@ -19,6 +19,40 @@ resource "aws_s3_object" "bucket_public_keys_readme" {
   kms_key_id = aws_kms_key.key.arn
 }
 
+resource "aws_security_group" "lb_security_group" {
+  count       = var.lb_with_security_group ? 1 : 0
+  description = "Enable SSH access to the bastion LB from external via SSH port"
+  name        = "${local.name_prefix}-lb"
+  vpc_id      = var.vpc_id
+
+  tags = merge(var.tags)
+}
+
+resource "aws_security_group_rule" "ingress_lb" {
+  count            = var.lb_with_security_group ? 1 : 0
+  description      = "Incoming traffic to bastion lb"
+  type             = "ingress"
+  from_port        = var.public_ssh_port
+  to_port          = var.public_ssh_port
+  protocol         = "TCP"
+  cidr_blocks      = var.cidrs
+  ipv6_cidr_blocks = var.ipv6_cidrs
+
+  security_group_id = aws_security_group.lb_security_group[count.index].id
+}
+
+resource "aws_security_group_rule" "egress_lb" {
+  count                    = var.lb_with_security_group ? 1 : 0
+  description              = "Egress traffic from the bastion lb to the bastion host"
+  type                     = "egress"
+  from_port                = var.public_ssh_port
+  to_port                  = var.public_ssh_port
+  protocol                 = "TCP"
+  source_security_group_id = aws_security_group.bastion_host_security_group[count.index].id
+
+  security_group_id = aws_security_group.lb_security_group[count.index].id
+}
+
 resource "aws_security_group" "bastion_host_security_group" {
   count       = var.bastion_security_group_id == "" ? 1 : 0
   description = "Enable SSH access to the bastion host from external via SSH port"
@@ -29,7 +63,7 @@ resource "aws_security_group" "bastion_host_security_group" {
 }
 
 resource "aws_security_group_rule" "ingress_bastion" {
-  count            = var.bastion_security_group_id == "" && var.create_elb ? 1 : 0
+  count            = var.bastion_security_group_id == "" && var.create_elb && !var.lb_with_security_group ? 1 : 0
   description      = "Incoming traffic to bastion"
   type             = "ingress"
   from_port        = var.public_ssh_port
@@ -37,6 +71,18 @@ resource "aws_security_group_rule" "ingress_bastion" {
   protocol         = "TCP"
   cidr_blocks      = local.ipv4_cidr_block
   ipv6_cidr_blocks = local.ipv6_cidr_block
+
+  security_group_id = local.security_group
+}
+
+resource "aws_security_group_rule" "ingress_bastion_via_lb_sg" {
+  count                    = var.bastion_security_group_id == "" && var.create_elb && var.lb_with_security_group ? 1 : 0
+  description              = "Incoming traffic to bastion"
+  type                     = "ingress"
+  from_port                = var.public_ssh_port
+  to_port                  = var.public_ssh_port
+  protocol                 = "TCP"
+  source_security_group_id = aws_security_group.lb_security_group[count.index].id
 
   security_group_id = local.security_group
 }
@@ -163,7 +209,8 @@ resource "aws_lb" "bastion_lb" {
   internal = var.is_lb_private
   name     = "${local.name_prefix}-lb"
 
-  subnets = var.elb_subnets
+  subnets         = var.elb_subnets
+  security_groups = var.lb_with_security_group ? [for id in aws_security_group.lb_security_group[*].id : id] : null
 
   load_balancer_type = "network"
   tags               = merge(var.tags)
