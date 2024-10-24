@@ -7,4 +7,3 @@ locals {
   ipv4_cidr_block = length(compact(data.aws_subnet.subnets[*].cidr_block)) == 0 ? null : concat(data.aws_subnet.subnets[*].cidr_block, var.cidrs)
   ipv6_cidr_block = length(compact(data.aws_subnet.subnets[*].ipv6_cidr_block)) == 0 ? null : concat(data.aws_subnet.subnets[*].ipv6_cidr_block, var.ipv6_cidrs)
 }
-

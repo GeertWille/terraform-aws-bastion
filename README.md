@@ -122,12 +122,13 @@ No modules.
 | <a name="input_auto_scaling_group_subnets"></a> [auto\_scaling\_group\_subnets](#input\_auto\_scaling\_group\_subnets) | List of subnets where the Auto Scaling Group will deploy the instances | `list(string)` | n/a | yes |
 | <a name="input_bastion_additional_security_groups"></a> [bastion\_additional\_security\_groups](#input\_bastion\_additional\_security\_groups) | List of additional security groups to attach to the launch template | `list(string)` | `[]` | no |
 | <a name="input_bastion_ami"></a> [bastion\_ami](#input\_bastion\_ami) | The AMI that the Bastion Host will use. | `string` | `""` | no |
+| <a name="input_bastion_autoscaling_group_name"></a> [bastion\_autoscaling\_group\_name](#input\_bastion\_autoscaling\_group\_name) | Bastion Auto scaling group Name | `string` | `"ASG-bastion-lt"` | no |
 | <a name="input_bastion_host_key_pair"></a> [bastion\_host\_key\_pair](#input\_bastion\_host\_key\_pair) | Select the key pair to use to launch the bastion host | `string` | n/a | yes |
 | <a name="input_bastion_iam_permissions_boundary"></a> [bastion\_iam\_permissions\_boundary](#input\_bastion\_iam\_permissions\_boundary) | IAM Role Permissions Boundary to constrain the bastion host role | `string` | `""` | no |
 | <a name="input_bastion_iam_policy_name"></a> [bastion\_iam\_policy\_name](#input\_bastion\_iam\_policy\_name) | IAM policy name to create for granting the instance role access to the bucket | `string` | `"BastionHost"` | no |
 | <a name="input_bastion_iam_role_name"></a> [bastion\_iam\_role\_name](#input\_bastion\_iam\_role\_name) | IAM role name to create | `string` | `null` | no |
 | <a name="input_bastion_instance_count"></a> [bastion\_instance\_count](#input\_bastion\_instance\_count) | n/a | `number` | `1` | no |
-| <a name="input_bastion_launch_template_name"></a> [bastion\_launch\_template\_name](#input\_bastion\_launch\_template\_name) | Bastion Launch template Name, will also be used for the ASG | `string` | `"bastion-lt"` | no |
+| <a name="input_bastion_launch_template_name"></a> [bastion\_launch\_template\_name](#input\_bastion\_launch\_template\_name) | Bastion Launch template Name | `string` | `"bastion-lt"` | no |
 | <a name="input_bastion_record_name"></a> [bastion\_record\_name](#input\_bastion\_record\_name) | DNS record name to use for the bastion | `string` | `""` | no |
 | <a name="input_bastion_security_group_id"></a> [bastion\_security\_group\_id](#input\_bastion\_security\_group\_id) | Custom security group to use | `string` | `""` | no |
 | <a name="input_bucket_force_destroy"></a> [bucket\_force\_destroy](#input\_bucket\_force\_destroy) | The bucket and all objects should be destroyed when using true | `bool` | `false` | no |
