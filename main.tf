@@ -320,7 +320,7 @@ resource "aws_launch_template" "bastion_launch_template" {
 }
 
 resource "aws_autoscaling_group" "bastion_auto_scaling_group" {
-  name_prefix = "ASG-${local.name_prefix}"
+  name_prefix = var.bastion_autoscaling_group_name
   launch_template {
     id      = aws_launch_template.bastion_launch_template.id
     version = aws_launch_template.bastion_launch_template.latest_version
@@ -355,7 +355,7 @@ resource "aws_autoscaling_group" "bastion_auto_scaling_group" {
 
   tag {
     key                 = "Name"
-    value               = "ASG-${local.name_prefix}"
+    value               = var.bastion_autoscaling_group_name
     propagate_at_launch = true
   }
 

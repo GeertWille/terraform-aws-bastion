@@ -54,9 +54,15 @@ variable "bastion_instance_count" {
   default = 1
 }
 
+variable "bastion_autoscaling_group_name" {
+  type        = string
+  description = "Bastion Auto scaling group Name"
+  default     = "ASG-bastion-lt"
+}
+
 variable "bastion_launch_template_name" {
   type        = string
-  description = "Bastion Launch template Name, will also be used for the ASG"
+  description = "Bastion Launch template Name"
   default     = "bastion-lt"
 }
 
