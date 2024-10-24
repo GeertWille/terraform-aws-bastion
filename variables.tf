@@ -253,3 +253,9 @@ variable "vpc_id" {
   type        = string
   description = "VPC ID where we'll deploy the bastion"
 }
+
+variable "lb_with_security_group" {
+  type        = bool
+  description = "Choose if the LB should have a security group attached. Defaults to false to preserve backwards compatibility. Switching from false to true will recreate the LB."
+  default     = false
+}
