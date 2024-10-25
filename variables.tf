@@ -266,3 +266,43 @@ variable "lb_with_security_group" {
   description = "Choose if the LB should have a security group attached. Defaults to false to preserve backwards compatibility. Switching from false to true will recreate the LB."
   default     = false
 }
+
+variable "bastion_egress_rules_cidr" {
+  description = "CIDR egress rules for the bastion instances"
+  type = map(object({
+    cidr_ipv4   = string
+    from_port   = number
+    ip_protocol = string
+    to_port     = number
+  }))
+  default = {
+    "Outgoing traffic from bastion to instances" = {
+      cidr_ipv4   = "0.0.0.0/0"
+      from_port   = 0
+      ip_protocol = "-1"
+      to_port     = 65535
+    }
+  }
+}
+
+variable "bastion_egress_rules_sg" {
+  description = "Security Group egress rules for the bastion instances"
+  type = map(object({
+    referenced_security_group_id = string
+    from_port                    = number
+    ip_protocol                  = string
+    to_port                      = number
+  }))
+  default = {}
+}
+
+variable "bastion_egress_rules_prefix_list" {
+  description = "Prefix list egress rules for the bastion instances"
+  type = map(object({
+    prefix_list_id = string
+    from_port      = number
+    ip_protocol    = string
+    to_port        = number
+  }))
+  default = {}
+}
