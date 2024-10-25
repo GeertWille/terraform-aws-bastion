@@ -29,6 +29,7 @@ variable "bastion_ami" {
 variable "bastion_host_key_pair" {
   type        = string
   description = "Select the key pair to use to launch the bastion host"
+  default     = ""
 }
 
 variable "bastion_iam_permissions_boundary" {

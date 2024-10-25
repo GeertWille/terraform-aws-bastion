@@ -123,7 +123,7 @@ No modules.
 | <a name="input_bastion_additional_security_groups"></a> [bastion\_additional\_security\_groups](#input\_bastion\_additional\_security\_groups) | List of additional security groups to attach to the launch template | `list(string)` | `[]` | no |
 | <a name="input_bastion_ami"></a> [bastion\_ami](#input\_bastion\_ami) | The AMI that the Bastion Host will use. | `string` | `""` | no |
 | <a name="input_bastion_autoscaling_group_name"></a> [bastion\_autoscaling\_group\_name](#input\_bastion\_autoscaling\_group\_name) | Bastion Auto scaling group Name | `string` | `"ASG-bastion-lt"` | no |
-| <a name="input_bastion_host_key_pair"></a> [bastion\_host\_key\_pair](#input\_bastion\_host\_key\_pair) | Select the key pair to use to launch the bastion host | `string` | n/a | yes |
+| <a name="input_bastion_host_key_pair"></a> [bastion\_host\_key\_pair](#input\_bastion\_host\_key\_pair) | Select the key pair to use to launch the bastion host | `string` | `""` | no |
 | <a name="input_bastion_iam_permissions_boundary"></a> [bastion\_iam\_permissions\_boundary](#input\_bastion\_iam\_permissions\_boundary) | IAM Role Permissions Boundary to constrain the bastion host role | `string` | `""` | no |
 | <a name="input_bastion_iam_policy_name"></a> [bastion\_iam\_policy\_name](#input\_bastion\_iam\_policy\_name) | IAM policy name to create for granting the instance role access to the bucket | `string` | `"BastionHost"` | no |
 | <a name="input_bastion_iam_role_name"></a> [bastion\_iam\_role\_name](#input\_bastion\_iam\_role\_name) | IAM role name to create | `string` | `null` | no |
