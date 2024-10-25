@@ -125,7 +125,7 @@ while read line; do
   USER_NAME="`get_user_name "$line"`"
 
   # Make sure the user name is alphanumeric
-  if [[ "$USER_NAME" =~ ^[a-z][-a-z0-9]*$ ]]; then
+  if [[ "$USER_NAME" =~ ^[a-z][-.a-z0-9]*$ ]]; then
 
     # Create a user account if it does not already exist
     cut -d: -f1 /etc/passwd | grep -qx $USER_NAME
