@@ -306,3 +306,9 @@ variable "bastion_egress_rules_prefix_list" {
   }))
   default = {}
 }
+
+variable "use_target_group_name_prefix" {
+  description = "Configure target group 'name_prefix' instead of 'name'. This resolves issues where, if the `public_ssh_port` changes, another target group cannot be created with the same name."
+  type        = bool
+  default     = false
+}
