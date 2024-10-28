@@ -87,16 +87,37 @@ resource "aws_security_group_rule" "ingress_bastion_via_lb_sg" {
   security_group_id = local.security_group
 }
 
-resource "aws_security_group_rule" "egress_bastion" {
-  count       = var.bastion_security_group_id == "" ? 1 : 0
-  description = "Outgoing traffic from bastion to instances"
-  type        = "egress"
-  from_port   = "0"
-  to_port     = "65535"
-  protocol    = "-1"
-  cidr_blocks = ["0.0.0.0/0"]
-
+resource "aws_vpc_security_group_egress_rule" "bastion_egress_cidr" {
+  for_each          = var.bastion_egress_rules_cidr
   security_group_id = local.security_group
+
+  description = each.key
+  cidr_ipv4   = each.value.cidr_ipv4
+  from_port   = each.value.from_port
+  ip_protocol = each.value.ip_protocol
+  to_port     = each.value.to_port
+}
+
+resource "aws_vpc_security_group_egress_rule" "bastion_egress_sg" {
+  for_each          = var.bastion_egress_rules_sg
+  security_group_id = local.security_group
+
+  description                  = each.key
+  referenced_security_group_id = each.value.referenced_security_group_id
+  from_port                    = each.value.from_port
+  ip_protocol                  = each.value.ip_protocol
+  to_port                      = each.value.to_port
+}
+
+resource "aws_vpc_security_group_egress_rule" "bastion_egress_prefix_list" {
+  for_each          = var.bastion_egress_rules_prefix_list
+  security_group_id = local.security_group
+
+  description    = each.key
+  prefix_list_id = each.value.prefix_list_id
+  from_port      = each.value.from_port
+  ip_protocol    = each.value.ip_protocol
+  to_port        = each.value.to_port
 }
 
 resource "aws_security_group" "private_instances_security_group" {

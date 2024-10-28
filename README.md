@@ -101,12 +101,14 @@ No modules.
 | [aws_security_group.bastion_host_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.lb_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.private_instances_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_security_group_rule.egress_bastion](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.egress_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.ingress_bastion](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.ingress_bastion_via_lb_sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.ingress_instances](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.ingress_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_vpc_security_group_egress_rule.bastion_egress_cidr](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
+| [aws_vpc_security_group_egress_rule.bastion_egress_prefix_list](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
+| [aws_vpc_security_group_egress_rule.bastion_egress_sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
 | [aws_ami.amazon-linux-2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_iam_policy_document.assume_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.bastion_host_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -123,6 +125,9 @@ No modules.
 | <a name="input_bastion_additional_security_groups"></a> [bastion\_additional\_security\_groups](#input\_bastion\_additional\_security\_groups) | List of additional security groups to attach to the launch template | `list(string)` | `[]` | no |
 | <a name="input_bastion_ami"></a> [bastion\_ami](#input\_bastion\_ami) | The AMI that the Bastion Host will use. | `string` | `""` | no |
 | <a name="input_bastion_autoscaling_group_name"></a> [bastion\_autoscaling\_group\_name](#input\_bastion\_autoscaling\_group\_name) | Bastion Auto scaling group Name | `string` | `"ASG-bastion-lt"` | no |
+| <a name="input_bastion_egress_rules_cidr"></a> [bastion\_egress\_rules\_cidr](#input\_bastion\_egress\_rules\_cidr) | CIDR egress rules for the bastion instances | <pre>map(object({<br/>    cidr_ipv4   = string<br/>    from_port   = number<br/>    ip_protocol = string<br/>    to_port     = number<br/>  }))</pre> | <pre>{<br/>  "Outgoing traffic from bastion to instances": {<br/>    "cidr_ipv4": "0.0.0.0/0",<br/>    "from_port": 0,<br/>    "ip_protocol": "-1",<br/>    "to_port": 65535<br/>  }<br/>}</pre> | no |
+| <a name="input_bastion_egress_rules_prefix_list"></a> [bastion\_egress\_rules\_prefix\_list](#input\_bastion\_egress\_rules\_prefix\_list) | Prefix list egress rules for the bastion instances | <pre>map(object({<br/>    prefix_list_id = string<br/>    from_port      = number<br/>    ip_protocol    = string<br/>    to_port        = number<br/>  }))</pre> | `{}` | no |
+| <a name="input_bastion_egress_rules_sg"></a> [bastion\_egress\_rules\_sg](#input\_bastion\_egress\_rules\_sg) | Security Group egress rules for the bastion instances | <pre>map(object({<br/>    referenced_security_group_id = string<br/>    from_port                    = number<br/>    ip_protocol                  = string<br/>    to_port                      = number<br/>  }))</pre> | `{}` | no |
 | <a name="input_bastion_host_key_pair"></a> [bastion\_host\_key\_pair](#input\_bastion\_host\_key\_pair) | Select the key pair to use to launch the bastion host | `string` | `""` | no |
 | <a name="input_bastion_iam_permissions_boundary"></a> [bastion\_iam\_permissions\_boundary](#input\_bastion\_iam\_permissions\_boundary) | IAM Role Permissions Boundary to constrain the bastion host role | `string` | `""` | no |
 | <a name="input_bastion_iam_policy_name"></a> [bastion\_iam\_policy\_name](#input\_bastion\_iam\_policy\_name) | IAM policy name to create for granting the instance role access to the bucket | `string` | `"BastionHost"` | no |
