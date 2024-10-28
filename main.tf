@@ -247,7 +247,9 @@ resource "aws_lb" "bastion_lb" {
 resource "aws_lb_target_group" "bastion_lb_target_group" {
   count = var.create_elb ? 1 : 0
 
-  name        = "${local.name_prefix}-lb-target"
+  name        = !var.use_target_group_name_prefix ? "${local.name_prefix}-lb-target" : null
+  name_prefix = var.use_target_group_name_prefix ? local.name_prefix_short : null
+
   port        = var.public_ssh_port
   protocol    = "TCP"
   vpc_id      = var.vpc_id

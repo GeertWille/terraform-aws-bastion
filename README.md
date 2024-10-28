@@ -166,6 +166,7 @@ No modules.
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign | `map(string)` | `{}` | no |
 | <a name="input_use_imds_v2"></a> [use\_imds\_v2](#input\_use\_imds\_v2) | Use (IMDSv2) Instance Metadata Service V2 | `bool` | `false` | no |
+| <a name="input_use_target_group_name_prefix"></a> [use\_target\_group\_name\_prefix](#input\_use\_target\_group\_name\_prefix) | Configure target group 'name\_prefix' instead of 'name'. This resolves issues where, if the `public_ssh_port` changes, another target group cannot be created with the same name. | `bool` | `false` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC ID where we'll deploy the bastion | `string` | n/a | yes |
 
 ## Outputs
