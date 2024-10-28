@@ -199,6 +199,11 @@ EOF
 crontab ~/mycron
 rm ~/mycron
 
+###################################
+## SYNC THE S3 USERS IMMEDIATELY ##
+###################################
+
+/usr/bin/bastion/sync_users
 
 #########################################
 ## Add Custom extra_user_data_content ##
