@@ -83,6 +83,7 @@ No modules.
 | [aws_iam_instance_profile.bastion_host_profile](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
 | [aws_iam_policy.bastion_host_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.bastion_host_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.additional](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.bastion_host](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_kms_alias.alias](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
 | [aws_kms_key.key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
@@ -131,6 +132,7 @@ No modules.
 | <a name="input_bastion_host_key_pair"></a> [bastion\_host\_key\_pair](#input\_bastion\_host\_key\_pair) | Select the key pair to use to launch the bastion host | `string` | `""` | no |
 | <a name="input_bastion_iam_permissions_boundary"></a> [bastion\_iam\_permissions\_boundary](#input\_bastion\_iam\_permissions\_boundary) | IAM Role Permissions Boundary to constrain the bastion host role | `string` | `""` | no |
 | <a name="input_bastion_iam_policy_name"></a> [bastion\_iam\_policy\_name](#input\_bastion\_iam\_policy\_name) | IAM policy name to create for granting the instance role access to the bucket | `string` | `"BastionHost"` | no |
+| <a name="input_bastion_iam_role_additional_policies"></a> [bastion\_iam\_role\_additional\_policies](#input\_bastion\_iam\_role\_additional\_policies) | Additional policies to be added to the IAM role | `set(string)` | `[]` | no |
 | <a name="input_bastion_iam_role_name"></a> [bastion\_iam\_role\_name](#input\_bastion\_iam\_role\_name) | IAM role name to create | `string` | `null` | no |
 | <a name="input_bastion_instance_count"></a> [bastion\_instance\_count](#input\_bastion\_instance\_count) | n/a | `number` | `1` | no |
 | <a name="input_bastion_launch_template_name"></a> [bastion\_launch\_template\_name](#input\_bastion\_launch\_template\_name) | Bastion Launch template Name | `string` | `"bastion-lt"` | no |

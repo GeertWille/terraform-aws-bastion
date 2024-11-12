@@ -50,6 +50,12 @@ variable "bastion_iam_role_name" {
   default     = null
 }
 
+variable "bastion_iam_role_additional_policies" {
+  description = "Additional policies to be added to the IAM role"
+  type        = set(string)
+  default     = []
+}
+
 variable "bastion_instance_count" {
   type    = number
   default = 1
