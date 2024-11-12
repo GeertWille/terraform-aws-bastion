@@ -144,6 +144,13 @@ resource "aws_iam_role_policy_attachment" "bastion_host" {
   role       = aws_iam_role.bastion_host_role.name
 }
 
+resource "aws_iam_role_policy_attachment" "additional" {
+  for_each = var.bastion_iam_role_additional_policies
+
+  policy_arn = each.value
+  role       = aws_iam_role.bastion_host_role.name
+}
+
 resource "aws_route53_record" "bastion_record_name" {
   name    = var.bastion_record_name
   zone_id = var.hosted_zone_id
