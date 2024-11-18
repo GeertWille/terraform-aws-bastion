@@ -19,9 +19,10 @@ sed -i "s/#Port 22/Port ${public_ssh_port}/g" /etc/ssh/sshd_config
 # Make OpenSSH execute a custom script on logins
 echo -e "\\nForceCommand /usr/bin/bastion/shell" >> /etc/ssh/sshd_config
 
-# Block some SSH features that bastion host users could use to circumvent the solution
-awk '!/X11Forwarding/' /etc/ssh/sshd_config > temp && mv temp /etc/ssh/sshd_config
+# Update SSH configuration to disable X11 forwarding and enable TCP forwarding
+awk '!/X11Forwarding|AllowTcpForwarding/' /etc/ssh/sshd_config > temp && mv temp /etc/ssh/sshd_config
 echo "X11Forwarding no" >> /etc/ssh/sshd_config
+echo "AllowTcpForwarding yes" >> /etc/ssh/sshd_config
 
 mkdir /usr/bin/bastion
 
